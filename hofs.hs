@@ -69,8 +69,8 @@ largestDivisible = head (filter p [100000, 99999..])
 sq :: Integer -> Integer -> Integer
 sq = (^)
 
-oddSquares :: Integer
-oddSquares = sum (takeWhile (<10000) (filter odd (map (sq 2) [1..])))
+oddSquareSum :: Integer
+oddSquareSum = sum (takeWhile (<10000) (filter odd (map (sq 2) [1..])))
 
 -- Collatz sequences
 
@@ -91,8 +91,103 @@ listOfFuns :: [Integer -> Integer]
 listOfFuns = map (*) [0..]
 -- the expression "(listOfFuns !! 4) 5" yields 20
 
--- Lambdas !
+-- lambdas
 
--- see targetChains
-numLongChains :: Int
+numLongChains :: Int -- see targetChains
 numLongChains = length (filter (\xs -> length xs > 15) (map chain ([1..100]::[Int])))
+
+-- folds
+
+foldl' :: (b -> a -> b) -> b -> [a] -> b
+foldl' _ z [] = z
+foldl' f b (a:as) = foldl' f (f b a) as
+
+sum' :: Num b => [b] -> b
+sum' = foldl' (+) 0
+
+elem' :: Eq a => a -> [a] -> Bool
+elem' a = foldl' (\bool a2 -> bool || a2 == a) False
+
+foldr' :: (a -> b -> b) -> b -> [a] -> b
+foldr' _ b [] = b
+foldr' f b (x:xs) = f x (foldr' f b xs)
+
+map'' :: (a -> b) -> [a] -> [b]
+map'' f = foldr' (\a l -> f a : l) []
+
+sum'' :: [Integer] -> Integer
+sum'' = foldl1 (+)
+
+maximum' :: Ord a => [a] -> a
+maximum' = foldl1 (\a1 a2 -> if a1 > a2 then a1 else a2)
+
+reverse' :: [a] -> [a]
+reverse' = foldl (flip (:)) []
+
+product' :: Num a => [a] -> a
+product' = foldl1 (*)
+
+filter'' :: (a -> Bool) -> [a] -> [a]
+filter'' p = foldr (\a acc -> if p a then a:acc else acc) []
+
+head' :: [a] -> a
+head' = foldr1 (\a _ -> a)
+
+last' :: [a] -> a
+last' = foldl1 (\_ a -> a)
+
+sqrtSums :: Int
+sqrtSums = length (takeWhile (<1000) (scanl1 (+) (map sqrt [1..]))) + 1
+
+-- function application with $
+
+cplxExpr :: Integer
+cplxExpr = sum (filter (> 10) (map (*2) [2..10]))
+
+smplExpr :: Integer
+smplExpr = sum $ filter (>10) $ map (*2) [2..10]
+
+-- function application is a... function !
+
+apOnFunList :: [Int]
+apOnFunList = map ($ 3) [(4+), (10*), (2^), (`mod` 2)]
+
+-- function composition
+
+negNums :: [Integer] -> [Integer]
+negNums = map (\x -> negate $ abs x)
+-- now using function composition
+negNums' :: [Integer] -> [Integer]
+negNums' = map (negate . abs)
+
+-- function composition is right-associative, so we can compose many functions at a time
+
+negSumTailNums :: [[Integer]] -> [Integer]
+negSumTailNums = map (\xs -> negate $ sum $ tail xs)
+-- now using function composition
+negSumTailNums' :: [[Integer]] -> [Integer]
+negSumTailNums' = map (negate . sum . tail)
+
+-- point free ( or pointless) style
+
+fn :: Double -> Integer
+fn x = ceiling (negate (tan (cos (max 50 x))))
+-- can be rewritten as
+fn' :: Double -> Integer
+fn' = ceiling . negate . tan . cos . max 50
+
+-- beware of readability
+
+oddSquareSum' :: Integer
+oddSquareSum' = sum $ takeWhile (<10000) $ filter odd $ map (sq 2) [1..]
+
+oddSquareSum'' :: Integer
+oddSquareSum'' = sum . takeWhile (<10000) . filter odd . map (sq 2) $ [1..]
+
+-- both of them better rewritten as
+
+oddSquareSum''' :: Integer
+oddSquareSum''' =
+  let oddSquares = filter odd . map (sq 2) $ [1..]
+      lessThanTenThousand = takeWhile (<10000)
+  in sum . lessThanTenThousand $ oddSquares
