@@ -1,4 +1,4 @@
-module Modules where
+module Chap7.Modules where
 
 import Data.List (nub, tails, find)
 import qualified Data.Map as Map

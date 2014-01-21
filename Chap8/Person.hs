@@ -1,4 +1,4 @@
-module Person where
+module Chap8.Person where
 
 -- normal syntax...
 

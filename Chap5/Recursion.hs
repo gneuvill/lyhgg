@@ -1,4 +1,4 @@
-module Recursion where
+module Chap5.Recursion where
 
 fibo :: Int -> [Int]
 fibo a = [fib x | x <- [0..a]]

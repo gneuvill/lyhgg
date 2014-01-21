@@ -1,4 +1,4 @@
-module Geometry.Cube
+module Chap7.Geometry.Cube
        ( volume
        , area 
        ) where

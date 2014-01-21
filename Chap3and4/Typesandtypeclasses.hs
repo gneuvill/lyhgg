@@ -1,4 +1,4 @@
-module TypesAndTypeClasses where
+module Chap3and4.TypesAndTypeClasses where
 
 -- Type signatures
 

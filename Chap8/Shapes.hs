@@ -1,4 +1,4 @@
-module Shapes
+module Chap8.Shapes
        ( Point(Point)
        , Shape(..) -- '..' exports all the value constructors
        , surface

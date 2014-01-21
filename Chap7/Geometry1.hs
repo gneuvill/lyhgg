@@ -1,4 +1,4 @@
-module Geometry1
+module Chap7.Geometry1
        ( sphereVolume
        , sphereArea
        , cubeVolume

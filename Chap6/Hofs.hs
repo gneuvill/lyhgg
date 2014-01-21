@@ -1,4 +1,4 @@
-module Hofs where
+module Chap6.Hofs where
 
 -- curried and partially applied functions
 
