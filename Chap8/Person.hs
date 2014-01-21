@@ -25,3 +25,18 @@ data Car = Car {company :: String, model :: String, year :: Int} deriving Show
 
 tellCar :: Car -> String
 tellCar (Car c m y) = "This " ++ c ++ " " ++ m ++ " was made in " ++ show y
+
+data SmallPers = SmallPers { fName :: String
+                           , lName :: String
+                           , old :: Int
+                           } deriving (Eq, Show, Read)
+
+robert :: String
+robert = show $ SmallPers "Robert" "Dupont" 46
+
+ourRobert :: SmallPers
+ourRobert = read robert
+-- without type declaration, we'd have to write 'read robert :: SmallPers'
+
+robertIsOurRobert :: Bool
+robertIsOurRobert = read robert == ourRobert -- here, the type of 'read robert' is inferred
