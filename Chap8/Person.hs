@@ -40,3 +40,4 @@ ourRobert = read robert
 
 robertIsOurRobert :: Bool
 robertIsOurRobert = read robert == ourRobert -- here, the type of 'read robert' is inferred
+
