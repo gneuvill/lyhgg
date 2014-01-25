@@ -168,7 +168,7 @@ negSumTailNums = map (\xs -> negate $ sum $ tail xs)
 negSumTailNums' :: [[Integer]] -> [Integer]
 negSumTailNums' = map (negate . sum . tail)
 
--- point free ( or pointless) style
+-- point-free ( or pointless) style
 
 fn :: Double -> Integer
 fn x = ceiling (negate (tan (cos (max 50 x))))
