@@ -22,3 +22,11 @@ elemTree a (Node x left right)
 
 treeFromList :: Ord a => [a] -> MyTree a
 treeFromList = foldr insertTree NilTree
+
+-- End of chapter 8 : let's make our MyTree type an instance of the Functor typeclass
+
+instance Functor MyTree where
+  fmap _ NilTree = NilTree
+  fmap f (Node x left right) =
+    Node (f x) (fmap f left) (fmap f right)
+
