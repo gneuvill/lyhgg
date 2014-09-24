@@ -14,4 +14,3 @@ instance Show TrafficLight where
   show Green = "Green Light"
   show Yellow = "Yellow Light"
 
-                              

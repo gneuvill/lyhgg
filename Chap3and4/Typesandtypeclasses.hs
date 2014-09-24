@@ -68,9 +68,9 @@ bmiTell bmi
 
 bmiTell' :: RealFloat a => a -> a -> String
 bmiTell' weight height
-  |  weight / height^(2::Int) <= 18.5 = "underweight"
+  | weight / height^(2::Int) <= 18.5 = "underweight"
   | weight / height^(2::Int) <= 25.0 = "normal"
-  | weight / height^2 <= 30.0 = "overweight"
+  | weight / height^(2::Int) <= 30.0 = "overweight"
   | otherwise = "obese"
 
 max' :: Ord a => a -> a -> a
